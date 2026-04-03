@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Services\AdzunaService;
 use App\Services\TheMuseService;
 use App\Services\RemotiveService;
-use App\Services\ZipRecruiterService;
+use App\Services\JSearchService;
 use App\Services\JobAggregatorService;
 
 class AppServiceProvider extends ServiceProvider
@@ -30,8 +30,8 @@ class AppServiceProvider extends ServiceProvider
             return new RemotiveService();
         });
 
-        $this->app->singleton(ZipRecruiterService::class, function () {
-            return new ZipRecruiterService();
+        $this->app->singleton(JSearchService::class, function () {
+            return new JSearchService();
         });
 
         // Register the aggregator as a singleton too.
@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
                 $app->make(AdzunaService::class),
                 $app->make(TheMuseService::class),
                 $app->make(RemotiveService::class),
-                $app->make(ZipRecruiterService::class),
+                $app->make(JSearchService::class),
             );
         });
     }

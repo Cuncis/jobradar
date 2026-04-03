@@ -39,7 +39,7 @@
         {{-- Subtitle --}}
         <p class="animate-fade-up delay-200 text-muted text-center
                   text-base md:text-lg font-light max-w-md mb-11 leading-relaxed">
-            Search across Adzuna, The Muse, Remotive, and ZipRecruiter simultaneously —
+            Search across Adzuna, The Muse, Remotive, and JSearch simultaneously —
             all results in one clean view.
         </p>
 
@@ -94,7 +94,7 @@
                         ['Adzuna', 'var(--color-adzuna)'],
                         ['The Muse', 'var(--color-themuse)'],
                         ['Remotive', 'var(--color-remotive)'],
-                        ['ZipRecruiter', 'var(--color-ziprecruiter)'],
+                        ['JSearch', 'var(--color-jsearch)'],
                     ] as [$name, $color])
                         <span class="flex items-center gap-2 px-4 py-2 rounded-full
                                      border border-border bg-surface text-text text-[0.8rem] font-medium">

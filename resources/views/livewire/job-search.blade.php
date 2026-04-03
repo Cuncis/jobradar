@@ -37,7 +37,7 @@
         {{-- Subtitle --}}
         <p class="animate-fade-up delay-200 text-muted text-center
                   text-base md:text-lg font-light max-w-md mb-11 leading-relaxed">
-            Search across Adzuna, The Muse, Remotive, and ZipRecruiter simultaneously —
+            Search across Adzuna, The Muse, Remotive, and JSearch simultaneously —
             all results in one clean view.
         </p>
 
@@ -93,7 +93,7 @@
                     ['Adzuna',       'var(--color-adzuna)'],
                     ['The Muse',     'var(--color-themuse)'],
                     ['Remotive',     'var(--color-remotive)'],
-                    ['ZipRecruiter', 'var(--color-ziprecruiter)'],
+                    ['JSearch', 'var(--color-jsearch)'],
                 ] as [$name, $color])
                     <span class="flex items-center gap-2 px-4 py-2 rounded-full
                                  border border-border bg-surface text-text text-[0.8rem] font-medium">
@@ -178,7 +178,7 @@
                             'adzuna'       => ['Adzuna',       'var(--color-adzuna)'],
                             'themuse'      => ['The Muse',     'var(--color-themuse)'],
                             'remotive'     => ['Remotive',     'var(--color-remotive)'],
-                            'ziprecruiter' => ['ZipRecruiter', 'var(--color-ziprecruiter)'],
+                            'jsearch' => ['JSearch', 'var(--color-jsearch)'],
                         ];
                     @endphp
 
@@ -299,13 +299,13 @@
                                     'adzuna'       => 'var(--color-adzuna)',
                                     'themuse'      => 'var(--color-themuse)',
                                     'remotive'     => 'var(--color-remotive)',
-                                    'ziprecruiter' => 'var(--color-ziprecruiter)',
+                                    'jsearch' => 'var(--color-jsearch)',
                                 ];
                                 $labelMap = [
                                     'adzuna'       => 'Adzuna',
                                     'themuse'      => 'The Muse',
                                     'remotive'     => 'Remotive',
-                                    'ziprecruiter' => 'ZipRecruiter',
+                                    'jsearch' => 'JSearch',
                                 ];
                                 $src     = $job['source'] ?? '';
                                 $color   = $colorMap[$src] ?? 'var(--color-brand)';

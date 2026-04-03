@@ -28,7 +28,7 @@ class CachedJob extends Model
         'raw_data',
     ];
 
-    protected $cast = [
+    protected $casts = [
         'tags' => 'array', // Cast JSON to array
         'raw_data' => 'array', // Cast JSON to array
         'posted_at' => 'datetime', // Cast to Carbon instance

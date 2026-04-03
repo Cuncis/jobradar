@@ -45,8 +45,8 @@ return [
         'api_key' => env('THEMUSE_API_KEY', ''),
     ],
 
-    'ziprecruiter' => [
-        'api_key' => env('ZIPRECRUITER_API_KEY', ''),
+    'jsearch' => [
+        'api_key' => env('JSEARCH_API_KEY', ''),
     ],
 
 ];

@@ -78,7 +78,7 @@
                         'adzuna'       => ['Adzuna',       'var(--color-adzuna)'],
                         'themuse'      => ['The Muse',     'var(--color-themuse)'],
                         'remotive'     => ['Remotive',     'var(--color-remotive)'],
-                        'ziprecruiter' => ['ZipRecruiter', 'var(--color-ziprecruiter)'],
+                        'jsearch' => ['JSearch', 'var(--color-jsearch)'],
                     ];
                 @endphp
 
@@ -197,13 +197,13 @@
                                 'adzuna'       => 'var(--color-adzuna)',
                                 'themuse'      => 'var(--color-themuse)',
                                 'remotive'     => 'var(--color-remotive)',
-                                'ziprecruiter' => 'var(--color-ziprecruiter)',
+                                'jsearch' => 'var(--color-jsearch)',
                             ];
                             $labelMap = [
                                 'adzuna'       => 'Adzuna',
                                 'themuse'      => 'The Muse',
                                 'remotive'     => 'Remotive',
-                                'ziprecruiter' => 'ZipRecruiter',
+                                'jsearch' => 'JSearch',
                             ];
 
                             $src     = $job['source'] ?? '';

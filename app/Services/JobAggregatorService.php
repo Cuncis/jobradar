@@ -18,7 +18,7 @@ class JobAggregatorService
         protected AdzunaService $adzuna,
         protected TheMuseService $themuse,
         protected RemotiveService $remotive,
-        protected ZipRecruiterService $ziprecruiter,
+        protected JSearchService $jsearch,
     ) {
     }
 
@@ -107,7 +107,7 @@ class JobAggregatorService
             fn() => $this->adzuna->search($query),
             fn() => $this->themuse->search($query),
             fn() => $this->remotive->search($query),
-            fn() => $this->ziprecruiter->search($query),
+            fn() => $this->jsearch->search($query),
         ];
 
         foreach ($sources as $fetchJobs) {
