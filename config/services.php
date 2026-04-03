@@ -35,4 +35,18 @@ return [
         ],
     ],
 
+    'adzuna' => [
+        'app_id' => env('ADZUNA_APP_ID', ''),
+        'app_key' => env('ADZUNA_APP_KEY', ''),
+        'country' => env('ADZUNA_COUNTRY', 'us'),
+    ],
+
+    'themuse' => [
+        'api_key' => env('THEMUSE_API_KEY', ''),
+    ],
+
+    'ziprecruiter' => [
+        'api_key' => env('ZIPRECRUITER_API_KEY', ''),
+    ],
+
 ];
