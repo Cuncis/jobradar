@@ -1,11 +1,73 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+/* Tell Tailwind v4 where to scan for class names */
+@source "../**/*.blade.php";
+@source "../**/*.js";
+@source "../../storage/framework/views/*.php";
 
+/* ── Custom CSS variables for our dark theme ── */
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-brand:   #5b7fff;
+    --color-brand2:  #a78bfa;
+    --color-success: #32c27d;
+
+    --color-bg:       #0b0d11;
+    --color-surface:  #13161d;
+    --color-surface2: #1c2030;
+    --color-border:   #252a3a;
+    --color-text:     #e8eaf0;
+    --color-muted:    #7a839a;
+
+    /* Source brand colors */
+    --color-adzuna:       #00b8d9;
+    --color-themuse:      #e8612c;
+    --color-remotive:     #32c27d;
+    --color-ziprecruiter: #4a90e2;
+
+    --font-display: 'Syne', sans-serif;
+    --font-body:    'DM Sans', sans-serif;
 }
+
+/* ── Base styles ── */
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+}
+
+/* Subtle noise texture overlay */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-glow {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.3; }
+}
+
+.animate-fade-up {
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+}
+
+.animate-pulse-glow {
+    animation: pulse-glow 2s ease infinite;
+}
+
+/* Staggered animation delays */
+.delay-0   { animation-delay: 0ms; }
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
