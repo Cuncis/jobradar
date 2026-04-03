@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'JobRadar — Unified Job Search')</title>
+    <title>@yield('title', $title ?? 'JobRadar — Unified Job Search')</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
@@ -15,6 +15,7 @@
     {{-- Vite handles Tailwind compilation --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    @livewireStyles
     @stack('styles')
 </head>
 
@@ -50,10 +51,12 @@
 
     {{-- ── Main content ── --}}
     <main class="relative z-10">
+        {{ $slot ?? '' }}
         @yield('content')
     </main>
 
     @stack('scripts')
+    @livewireScripts
 </body>
 
 </html>

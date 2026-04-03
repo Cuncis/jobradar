@@ -2,20 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
+use App\Livewire\JobSearch;
 
-// Homepage — search form
-Route::get('/', [JobController::class, 'index'])->name('home');
+// Homepage + search — all handled by the Livewire component
+Route::get('/', JobSearch::class)->name('home');
 
-// Search results
-// Important: this must come BEFORE /jobs/{id}
-// otherwise Laravel would try to match "search" as an {id}
-Route::get('/jobs/search', [JobController::class, 'search'])->name('jobs.search');
-
-// Single job detail
+// Single job detail (still a regular controller — no Livewire needed here)
 Route::get('/jobs/{id}', [JobController::class, 'show'])
-    ->where('id', '[0-9]+') // only match numeric IDs
+    ->where('id', '[0-9]+')
     ->name('jobs.show');
-
-// Clear old cache (POST so it can't be triggered by just visiting a URL)
-Route::post('/jobs/cache/clear', [JobController::class, 'clearCache'])
-    ->name('jobs.cache.clear');
