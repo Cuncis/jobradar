@@ -71,3 +71,55 @@ body::before {
 .delay-200 { animation-delay: 200ms; }
 .delay-300 { animation-delay: 300ms; }
 .delay-400 { animation-delay: 400ms; }
+
+/* ── Top progress bar ── */
+@keyframes progress-slide {
+    0%   { transform: translateX(-100%); }
+    60%  { transform: translateX(-10%); }
+    100% { transform: translateX(0%); }
+}
+
+@keyframes progress-done {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+#loading-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    z-index: 9999;
+    pointer-events: none;
+    background: var(--color-brand);
+    transform: translateX(-100%);
+    transition: none;
+}
+
+#loading-bar.running {
+    animation: progress-slide 2.4s cubic-bezier(0.1, 0.05, 0.0, 1) forwards;
+}
+
+#loading-bar.done {
+    transform: translateX(0);
+    animation: progress-done 0.3s ease 0.1s forwards;
+}
+
+/* ── Skeleton shimmer ── */
+@keyframes shimmer {
+    0%   { background-position: -600px 0; }
+    100% { background-position:  600px 0; }
+}
+
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--color-surface2) 25%,
+        color-mix(in srgb, var(--color-surface2) 60%, var(--color-border)) 50%,
+        var(--color-surface2) 75%
+    );
+    background-size: 600px 100%;
+    animation: shimmer 1.4s ease infinite;
+    border-radius: 6px;
+}
