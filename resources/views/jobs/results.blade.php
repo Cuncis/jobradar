@@ -35,7 +35,7 @@
                 >
 
                 <button type="submit"
-                        class="shrink-0 bg-gradient-to-br from-brand to-brand2
+                        class="shrink-0 bg-brand
                                text-white font-display font-bold text-sm
                                px-6 py-3 rounded-xl tracking-wide cursor-pointer
                                transition-all duration-150
@@ -155,7 +155,7 @@
             {{-- Results header --}}
             <div class="flex items-baseline justify-between gap-4 mb-6 flex-wrap">
                 <h1 class="font-display font-black text-2xl tracking-tight">
-                    <span class="bg-gradient-to-br from-brand to-brand2 bg-clip-text text-transparent">
+                    <span class="text-brand">
                         {{ count($jobs) }}
                     </span>
                     jobs found

@@ -29,7 +29,7 @@
                    leading-[1.05] tracking-tight mb-5
                    text-5xl md:text-6xl lg:text-7xl max-w-3xl">
             One search.<br>
-            <span class="bg-gradient-to-br from-brand to-brand2 bg-clip-text text-transparent">
+            <span class="text-brand">
                 Every opportunity.
             </span>
         </h1>
@@ -59,7 +59,7 @@
                            autocomplete="off"
                            autofocus>
                     <button type="submit"
-                            class="shrink-0 bg-gradient-to-br from-brand to-brand2
+                            class="shrink-0 bg-brand
                                    text-white font-display font-bold text-sm
                                    px-6 py-3 rounded-xl tracking-wide cursor-pointer
                                    transition-all duration-150
@@ -130,7 +130,7 @@
                            placeholder="Search jobs..."
                            autocomplete="off">
                     <button type="submit"
-                            class="shrink-0 bg-gradient-to-br from-brand to-brand2
+                            class="shrink-0 bg-brand
                                    text-white font-display font-bold text-sm
                                    px-6 py-3 rounded-xl tracking-wide cursor-pointer
                                    transition-all duration-150
@@ -257,7 +257,7 @@
                 <div wire:loading.remove
                      class="flex items-baseline justify-between gap-4 mb-6 flex-wrap">
                     <h1 class="font-display font-black text-2xl tracking-tight">
-                        <span class="bg-gradient-to-br from-brand to-brand2 bg-clip-text text-transparent">
+                        <span class="text-brand">
                             {{ count($jobs) }}
                         </span>
                         jobs found

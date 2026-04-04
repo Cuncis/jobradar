@@ -24,8 +24,8 @@
     --color-remotive:     #32c27d;
     --color-jsearch:      #ff6154;
 
-    --font-display: 'Syne', sans-serif;
-    --font-body:    'DM Sans', sans-serif;
+    --font-display: 'DM Mono', monospace;
+    --font-body:    'Inter', sans-serif;
 }
 
 /* ── Base styles ── */
