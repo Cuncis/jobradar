@@ -4,7 +4,8 @@
          HERO / SEARCH SECTION  (shown when no results)
     ─────────────────────────────────────────────────── --}}
     @if(!$searched)
-    <section class="min-h-[calc(100vh-60px)] flex flex-col items-center justify-center
+    <section wire:loading.remove wire:target="quickSearch"
+             class="min-h-[calc(100vh-60px)] flex flex-col items-center justify-center
                     px-6 py-20 relative overflow-hidden">
 
         {{-- Ambient glows --}}
@@ -104,6 +105,28 @@
             </div>
         </div>
 
+    </section>
+
+    {{-- Loading skeleton shown while quickSearch is pending (hero → results) --}}
+    <section wire:loading wire:target="quickSearch"
+             class="min-h-[calc(100vh-60px)] flex flex-col justify-center px-6 py-12">
+        <div class="max-w-2xl w-full mx-auto flex flex-col gap-3">
+            @for($i = 0; $i < 7; $i++)
+                <div class="flex gap-4 bg-surface border border-border rounded-2xl p-5">
+                    <div class="skeleton w-9 h-9 rounded-lg shrink-0"></div>
+                    <div class="flex-1 min-w-0 flex flex-col gap-2.5">
+                        <div class="skeleton h-4 w-3/5 rounded"></div>
+                        <div class="skeleton h-3 w-2/5 rounded"></div>
+                        <div class="skeleton h-3 w-full rounded"></div>
+                        <div class="skeleton h-3 w-4/5 rounded"></div>
+                        <div class="flex gap-2 mt-1">
+                            <div class="skeleton h-5 w-16 rounded-md"></div>
+                            <div class="skeleton h-5 w-14 rounded-md"></div>
+                        </div>
+                    </div>
+                </div>
+            @endfor
+        </div>
     </section>
     @endif
 
@@ -242,15 +265,24 @@
             {{-- ════ RESULTS ════ --}}
             <div class="flex-1 min-w-0">
 
-                {{-- Loading indicator --}}
-                <div wire:loading wire:target="search,filterSource,filterType,clearFilters"
-                     class="flex items-center gap-2 text-muted text-sm mb-4">
-                    <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
-                        <path class="opacity-75" fill="currentColor"
-                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
-                    </svg>
-                    Fetching jobs…
+                {{-- Skeleton loading cards --}}
+                <div wire:loading wire:target="search,filterSource,filterType,clearFilters,quickSearch"
+                     class="flex flex-col gap-3">
+                    @for($i = 0; $i < 5; $i++)
+                        <div class="flex gap-4 bg-surface border border-border rounded-2xl p-5">
+                            <div class="skeleton w-9 h-9 rounded-lg shrink-0"></div>
+                            <div class="flex-1 min-w-0 flex flex-col gap-2.5">
+                                <div class="skeleton h-4 w-3/5 rounded"></div>
+                                <div class="skeleton h-3 w-2/5 rounded"></div>
+                                <div class="skeleton h-3 w-full rounded"></div>
+                                <div class="skeleton h-3 w-4/5 rounded"></div>
+                                <div class="flex gap-2 mt-1">
+                                    <div class="skeleton h-5 w-16 rounded-md"></div>
+                                    <div class="skeleton h-5 w-14 rounded-md"></div>
+                                </div>
+                            </div>
+                        </div>
+                    @endfor
                 </div>
 
                 {{-- Results header --}}
