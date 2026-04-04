@@ -38,8 +38,7 @@
         {{-- Subtitle --}}
         <p class="animate-fade-up delay-200 text-muted text-center
                   text-base md:text-lg font-light max-w-md mb-11 leading-relaxed">
-            Search across Adzuna, The Muse, Remotive, and JSearch simultaneously —
-            all results in one clean view.
+            Search across Adzuna, The Muse, Remotive, and JSearch simultaneously, all results in one clean view.
         </p>
 
         {{-- Search form --}}
