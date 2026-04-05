@@ -12,6 +12,7 @@ class CachedJob extends Model
     protected $fillable = [
         'external_id',
         'source',
+        'search_query',
         'title',
         'company',
         'location',

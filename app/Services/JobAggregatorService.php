@@ -47,7 +47,7 @@ class JobAggregatorService
         $freshJobs = $this->fetchFromAllSources($query);
 
         // 4. Save to DB (upsert — insert or update if exists)
-        $this->saveToDatabase($freshJobs);
+        $this->saveToDatabase($freshJobs, $query);
 
         // 5. Re-read from DB so we get proper model data + IDs
         $results = $this->getFromDatabase($query, fresh: true);
@@ -79,7 +79,9 @@ class JobAggregatorService
     // -------------------------------------------------------
     private function getFromDatabase(string $query, bool $fresh = false): array
     {
-        $queryBuilder = CachedJob::where('title', 'LIKE', "%{$query}%")
+        $normalised = strtolower(trim($query));
+
+        $queryBuilder = CachedJob::where('search_query', $normalised)
             ->orderByDesc('posted_at')
             ->limit(60);
 
@@ -149,14 +151,17 @@ class JobAggregatorService
     // -------------------------------------------------------
     // Private: Upsert jobs into DB
     // -------------------------------------------------------
-    private function saveToDatabase(array $jobs): void
+    private function saveToDatabase(array $jobs, string $query): void
     {
+        $normalised = strtolower(trim($query));
+
         foreach ($jobs as $job) {
             CachedJob::updateOrCreate(
-                // Match on these two fields (our unique key)
+                // Match on source + external_id + search_query (query-scoped unique key)
                 [
                     'external_id' => $job['external_id'],
                     'source' => $job['source'],
+                    'search_query' => $normalised,
                 ],
                 // Update/insert all other fields
                 [
