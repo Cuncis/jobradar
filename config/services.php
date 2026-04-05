@@ -49,4 +49,8 @@ return [
         'api_key' => env('JSEARCH_API_KEY', ''),
     ],
 
+    'glassdoor' => [
+        'api_key' => env('GLASSDOOR_API_KEY', ''),
+    ],
+
 ];
