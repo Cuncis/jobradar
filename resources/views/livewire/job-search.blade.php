@@ -197,10 +197,11 @@
 
                     @php
                         $sourceMap = [
-                            'adzuna'       => ['Adzuna',       'var(--color-adzuna)'],
-                            'themuse'      => ['The Muse',     'var(--color-themuse)'],
-                            'remotive'     => ['Remotive',     'var(--color-remotive)'],
-                            'jsearch' => ['JSearch', 'var(--color-jsearch)'],
+                            'adzuna'    => ['Adzuna',     'var(--color-adzuna)'],
+                            'themuse'   => ['The Muse',   'var(--color-themuse)'],
+                            'remotive'  => ['Remotive',   'var(--color-remotive)'],
+                            'jsearch'   => ['JSearch',    'var(--color-jsearch)'],
+                            'glassdoor' => ['Glassdoor',  'var(--color-brand)'],
                         ];
                     @endphp
 

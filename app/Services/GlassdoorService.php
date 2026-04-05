@@ -98,9 +98,11 @@ class GlassdoorService
 
     protected function mockData(string $query): array
     {
+        $hash = md5(strtolower(trim($query)));
+
         return [
             [
-                'external_id' => 'glassdoor_mock_1',
+                'external_id' => 'glassdoor_mock_a_' . $hash,
                 'source' => 'glassdoor',
                 'title' => ucwords($query) . ' Analyst',
                 'company' => 'Insight Corp',
@@ -118,7 +120,7 @@ class GlassdoorService
                 'raw_data' => [],
             ],
             [
-                'external_id' => 'glassdoor_mock_2',
+                'external_id' => 'glassdoor_mock_b_' . $hash,
                 'source' => 'glassdoor',
                 'title' => 'Senior ' . ucwords($query) . ' Developer',
                 'company' => 'Nexus Solutions',
