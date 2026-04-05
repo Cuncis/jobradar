@@ -300,6 +300,9 @@
                     </h1>
                     <span class="text-xs text-muted">
                         for "{{ $query }}" · cached 1 hr
+                        @if(count($jobs) > 0)
+                            · page {{ $page }} of {{ $totalPages }}
+                        @endif
                     </span>
                 </div>
 
@@ -324,19 +327,21 @@
                 {{-- Job cards --}}
                 @else
                     <div wire:loading.remove class="flex flex-col gap-3">
-                        @foreach($jobs as $job)
+                        @foreach($pagedJobs as $job)
                             @php
                                 $colorMap = [
                                     'adzuna'       => 'var(--color-adzuna)',
                                     'themuse'      => 'var(--color-themuse)',
                                     'remotive'     => 'var(--color-remotive)',
-                                    'jsearch' => 'var(--color-jsearch)',
+                                    'jsearch'      => 'var(--color-jsearch)',
+                                    'glassdoor'    => 'var(--color-brand)',
                                 ];
                                 $labelMap = [
                                     'adzuna'       => 'Adzuna',
                                     'themuse'      => 'The Muse',
                                     'remotive'     => 'Remotive',
-                                    'jsearch' => 'JSearch',
+                                    'jsearch'      => 'JSearch',
+                                    'glassdoor'    => 'Glassdoor',
                                 ];
                                 $src     = $job['source'] ?? '';
                                 $color   = $colorMap[$src] ?? 'var(--color-brand)';
@@ -447,6 +452,93 @@
                             </a>
                         @endforeach
                     </div>
+
+                    {{-- Pagination --}}
+                    @if($totalPages > 1)
+                        <div wire:loading.remove class="flex items-center justify-center gap-1.5 mt-8">
+
+                            {{-- Prev --}}
+                            <button wire:click="goToPage({{ $page - 1 }})"
+                                    @disabled($page === 1)
+                                    type="button"
+                                    class="flex items-center gap-1.5 px-4 py-2 rounded-xl border border-border
+                                           text-sm text-muted transition-all duration-150 font-body
+                                           hover:border-brand hover:text-brand disabled:opacity-30
+                                           disabled:cursor-not-allowed disabled:hover:border-border
+                                           disabled:hover:text-muted cursor-pointer bg-transparent">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                </svg>
+                                Prev
+                            </button>
+
+                            {{-- Page numbers --}}
+                            @php
+                                $start = max(1, $page - 2);
+                                $end   = min($totalPages, $page + 2);
+                            @endphp
+
+                            @if($start > 1)
+                                <button wire:click="goToPage(1)" type="button"
+                                        class="w-9 h-9 rounded-xl border border-border text-sm text-muted
+                                               hover:border-brand hover:text-brand transition-all duration-150
+                                               cursor-pointer bg-transparent font-body">
+                                    1
+                                </button>
+                                @if($start > 2)
+                                    <span class="w-9 h-9 flex items-center justify-center text-muted text-sm">…</span>
+                                @endif
+                            @endif
+
+                            @for($p = $start; $p <= $end; $p++)
+                                <button wire:click="goToPage({{ $p }})" type="button"
+                                        class="w-9 h-9 rounded-xl border text-sm transition-all duration-150
+                                               cursor-pointer font-body
+                                               {{ $p === $page
+                                                    ? 'border-brand bg-brand text-white font-bold'
+                                                    : 'border-border text-muted hover:border-brand hover:text-brand bg-transparent' }}">
+                                    {{ $p }}
+                                </button>
+                            @endfor
+
+                            @if($end < $totalPages)
+                                @if($end < $totalPages - 1)
+                                    <span class="w-9 h-9 flex items-center justify-center text-muted text-sm">…</span>
+                                @endif
+                                <button wire:click="goToPage({{ $totalPages }})" type="button"
+                                        class="w-9 h-9 rounded-xl border border-border text-sm text-muted
+                                               hover:border-brand hover:text-brand transition-all duration-150
+                                               cursor-pointer bg-transparent font-body">
+                                    {{ $totalPages }}
+                                </button>
+                            @endif
+
+                            {{-- Next --}}
+                            <button wire:click="goToPage({{ $page + 1 }})"
+                                    @disabled($page === $totalPages)
+                                    type="button"
+                                    class="flex items-center gap-1.5 px-4 py-2 rounded-xl border border-border
+                                           text-sm text-muted transition-all duration-150 font-body
+                                           hover:border-brand hover:text-brand disabled:opacity-30
+                                           disabled:cursor-not-allowed disabled:hover:border-border
+                                           disabled:hover:text-muted cursor-pointer bg-transparent">
+                                Next
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </button>
+
+                        </div>
+
+                        {{-- Page info --}}
+                        <p class="text-center text-xs text-muted mt-3">
+                            Showing {{ ($page - 1) * $perPage + 1 }}–{{ min($page * $perPage, count($jobs)) }}
+                            of {{ count($jobs) }} jobs
+                        </p>
+                    @endif
+
                 @endif
 
             </div>

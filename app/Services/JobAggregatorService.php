@@ -19,6 +19,7 @@ class JobAggregatorService
         protected TheMuseService $themuse,
         protected RemotiveService $remotive,
         protected JSearchService $jsearch,
+        protected GlassdoorService $glassdoor,
     ) {
     }
 
@@ -108,6 +109,7 @@ class JobAggregatorService
             fn() => $this->themuse->search($query),
             fn() => $this->remotive->search($query),
             fn() => $this->jsearch->search($query),
+            fn() => $this->glassdoor->search($query),
         ];
 
         foreach ($sources as $fetchJobs) {

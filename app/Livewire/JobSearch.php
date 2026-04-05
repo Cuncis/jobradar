@@ -23,6 +23,8 @@ class JobSearch extends Component
     public array $sourceCounts = [];
     public bool $loading = false;
     public bool $searched = false;
+    public int $page = 1;
+    protected int $perPage = 10;
 
     protected array $rules = [
         'query' => 'required|string|min:2|max:100',
@@ -43,6 +45,7 @@ class JobSearch extends Component
         $this->validate();
         $this->source = '';
         $this->type = '';
+        $this->page = 1;
         $this->runSearch();
     }
 
@@ -51,18 +54,21 @@ class JobSearch extends Component
         $this->query = $term;
         $this->source = '';
         $this->type = '';
+        $this->page = 1;
         $this->runSearch();
     }
 
     public function filterSource(string $source): void
     {
         $this->source = $source;
+        $this->page = 1;
         $this->runSearch();
     }
 
     public function filterType(string $type): void
     {
         $this->type = $type;
+        $this->page = 1;
         $this->runSearch();
     }
 
@@ -70,7 +76,14 @@ class JobSearch extends Component
     {
         $this->source = '';
         $this->type = '';
+        $this->page = 1;
         $this->runSearch();
+    }
+
+    public function goToPage(int $page): void
+    {
+        $totalPages = (int) ceil(count($this->jobs) / $this->perPage);
+        $this->page = max(1, min($page, $totalPages));
     }
 
     public function clearCache(): void
@@ -120,6 +133,14 @@ class JobSearch extends Component
 
     public function render()
     {
-        return view('livewire.job-search');
+        $totalJobs = count($this->jobs);
+        $totalPages = $totalJobs > 0 ? (int) ceil($totalJobs / $this->perPage) : 1;
+        $pagedJobs = array_slice($this->jobs, ($this->page - 1) * $this->perPage, $this->perPage);
+
+        return view('livewire.job-search', [
+            'pagedJobs' => $pagedJobs,
+            'totalPages' => $totalPages,
+            'perPage' => $this->perPage,
+        ]);
     }
 }
