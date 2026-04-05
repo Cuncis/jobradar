@@ -7,6 +7,7 @@ use App\Services\AdzunaService;
 use App\Services\TheMuseService;
 use App\Services\RemotiveService;
 use App\Services\JSearchService;
+use App\Services\GlassdoorService;
 use App\Services\JobAggregatorService;
 
 class AppServiceProvider extends ServiceProvider
@@ -34,8 +35,12 @@ class AppServiceProvider extends ServiceProvider
             return new JSearchService();
         });
 
+        $this->app->singleton(GlassdoorService::class, function () {
+            return new GlassdoorService();
+        });
+
         // Register the aggregator as a singleton too.
-        // The container automatically injects the 4 services above
+        // The container automatically injects the 5 services above
         // because we already registered them.
         $this->app->singleton(JobAggregatorService::class, function ($app) {
             return new JobAggregatorService(
@@ -43,6 +48,7 @@ class AppServiceProvider extends ServiceProvider
                 $app->make(TheMuseService::class),
                 $app->make(RemotiveService::class),
                 $app->make(JSearchService::class),
+                $app->make(GlassdoorService::class),
             );
         });
     }
