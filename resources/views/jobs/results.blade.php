@@ -75,10 +75,11 @@
 
                 @php
                     $sourceMap = [
-                        'adzuna'       => ['Adzuna',       'var(--color-adzuna)'],
-                        'themuse'      => ['The Muse',     'var(--color-themuse)'],
-                        'remotive'     => ['Remotive',     'var(--color-remotive)'],
-                        'jsearch' => ['JSearch', 'var(--color-jsearch)'],
+                        'adzuna'    => ['Adzuna',    'var(--color-adzuna)'],
+                        'themuse'   => ['The Muse',  'var(--color-themuse)'],
+                        'remotive'  => ['Remotive',  'var(--color-remotive)'],
+                        'jsearch'   => ['JSearch',   'var(--color-jsearch)'],
+                        'glassdoor' => ['Glassdoor', 'var(--color-brand)'],
                     ];
                 @endphp
 
@@ -194,16 +195,18 @@
                     @foreach($jobs as $job)
                         @php
                             $colorMap = [
-                                'adzuna'       => 'var(--color-adzuna)',
-                                'themuse'      => 'var(--color-themuse)',
-                                'remotive'     => 'var(--color-remotive)',
-                                'jsearch' => 'var(--color-jsearch)',
+                                'adzuna'    => 'var(--color-adzuna)',
+                                'themuse'   => 'var(--color-themuse)',
+                                'remotive'  => 'var(--color-remotive)',
+                                'jsearch'   => 'var(--color-jsearch)',
+                                'glassdoor' => 'var(--color-brand)',
                             ];
                             $labelMap = [
-                                'adzuna'       => 'Adzuna',
-                                'themuse'      => 'The Muse',
-                                'remotive'     => 'Remotive',
-                                'jsearch' => 'JSearch',
+                                'adzuna'    => 'Adzuna',
+                                'themuse'   => 'The Muse',
+                                'remotive'  => 'Remotive',
+                                'jsearch'   => 'JSearch',
+                                'glassdoor' => 'Glassdoor',
                             ];
 
                             $src     = $job['source'] ?? '';

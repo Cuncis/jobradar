@@ -38,7 +38,7 @@
         {{-- Subtitle --}}
         <p class="animate-fade-up delay-200 text-muted text-center
                   text-base md:text-lg font-light max-w-md mb-11 leading-relaxed">
-            Search across Adzuna, The Muse, Remotive, and JSearch simultaneously, all results in one clean view.
+            Search across Adzuna, The Muse, Remotive, JSearch, and Glassdoor simultaneously, all results in one clean view.
         </p>
 
         {{-- Search form --}}
@@ -90,10 +90,11 @@
             <span class="text-[0.68rem] text-muted uppercase tracking-[0.12em]">Powered by</span>
             <div class="flex gap-2.5 flex-wrap justify-center">
                 @foreach([
-                    ['Adzuna',       'var(--color-adzuna)'],
-                    ['The Muse',     'var(--color-themuse)'],
-                    ['Remotive',     'var(--color-remotive)'],
-                    ['JSearch', 'var(--color-jsearch)'],
+                    ['Adzuna',     'var(--color-adzuna)'],
+                    ['The Muse',   'var(--color-themuse)'],
+                    ['Remotive',   'var(--color-remotive)'],
+                    ['JSearch',    'var(--color-jsearch)'],
+                    ['Glassdoor',  'var(--color-brand)'],
                 ] as [$name, $color])
                     <span class="flex items-center gap-2 px-4 py-2 rounded-full
                                  border border-border bg-surface text-text text-[0.8rem] font-medium">
