@@ -9,25 +9,38 @@
         'adzuna'       => '#00b8d9',
         'themuse'      => '#e8612c',
         'remotive'     => '#32c27d',
-        'jsearch' => '#ff6154',
+        'jsearch'    => '#ff6154',
+        'glassdoor'  => '#0caa41',
     ];
     $labelMap = [
         'adzuna'       => 'Adzuna',
         'themuse'      => 'The Muse',
         'remotive'     => 'Remotive',
-        'jsearch' => 'JSearch',
+        'jsearch'    => 'JSearch',
+        'glassdoor'  => 'Glassdoor',
     ];
     $iconMap = [
         'adzuna'       => '🔵',
         'themuse'      => '🟠',
         'remotive'     => '🟢',
-        'jsearch' => '🔴',
+        'jsearch'    => '🔴',
+        'glassdoor'  => '🟢',
     ];
 
-    $color   = $colorMap[$job->source] ?? '#5b7fff';
-    $label   = $labelMap[$job->source] ?? ucfirst($job->source);
-    $icon    = $iconMap[$job->source]  ?? '🔘';
-    $initial = strtoupper(substr($job->company ?? '?', 0, 1));
+    $sourceUrlMap = [
+        'adzuna'     => 'https://www.adzuna.com',
+        'themuse'    => 'https://www.themuse.com',
+        'remotive'   => 'https://remotive.com',
+        'jsearch'    => 'https://jsearch.p.rapidapi.com',
+        'glassdoor'  => 'https://www.glassdoor.com',
+    ];
+
+    $color      = $colorMap[$job->source] ?? '#5b7fff';
+    $label      = $labelMap[$job->source] ?? ucfirst($job->source);
+    $icon       = $iconMap[$job->source]  ?? '🔘';
+    $initial    = strtoupper(substr($job->company ?? '?', 0, 1));
+    $sourceUrl  = $sourceUrlMap[$job->source] ?? null;
+    $companySearchUrl = 'https://www.google.com/search?q=' . urlencode(($job->company ?? '') . ' official website');
 @endphp
 
 <div class="max-w-6xl mx-auto px-6 py-8">
@@ -79,9 +92,10 @@
                                    tracking-tight leading-tight mb-1">
                             {{ $job->title }}
                         </h1>
-                        <p class="text-muted font-medium text-base">
+                        <a href="{{ $companySearchUrl }}" target="_blank" rel="noopener noreferrer"
+                           class="text-muted font-medium text-base hover:text-text transition-colors duration-150">
                             {{ $job->company }}
-                        </p>
+                        </a>
                     </div>
                 </div>
 
@@ -146,10 +160,17 @@
                                      tracking-[0.12em] text-muted">
                             Source
                         </span>
-                        <span class="text-sm font-medium"
-                              style="color: {{ $color }}">
-                            {{ $label }}
-                        </span>
+                        @if($job->external_url)
+                            <a href="{{ $job->external_url }}" target="_blank" rel="noopener noreferrer"
+                               class="text-sm font-medium hover:underline"
+                               style="color: {{ $color }}">
+                                {{ $label }}
+                            </a>
+                        @else
+                            <span class="text-sm font-medium" style="color: {{ $color }}">
+                                {{ $label }}
+                            </span>
+                        @endif
                     </div>
 
                 </div>
@@ -208,17 +229,32 @@
                         {{ $icon }}
                     </div>
                     <div>
-                        <p class="font-display font-bold text-sm"
-                           style="color: {{ $color }}">
-                            {{ $label }}
-                        </p>
+                        @if($job->external_url)
+                            <a href="{{ $job->external_url }}" target="_blank" rel="noopener noreferrer"
+                               class="font-display font-bold text-sm hover:underline"
+                               style="color: {{ $color }}">
+                                {{ $label }}
+                            </a>
+                        @else
+                            <p class="font-display font-bold text-sm" style="color: {{ $color }}">
+                                {{ $label }}
+                            </p>
+                        @endif
                         <p class="text-[0.72rem] text-muted">Job listing source</p>
                     </div>
                 </div>
 
                 {{-- Info rows --}}
+                {{-- Company row (linked) --}}
+                <div class="flex items-center justify-between py-2.5 border-b border-border">
+                    <span class="text-xs text-muted">Company</span>
+                    <a href="{{ $companySearchUrl }}" target="_blank" rel="noopener noreferrer"
+                       class="text-xs font-medium text-right max-w-[55%] hover:underline hover:text-brand">
+                        {{ $job->company ?? '—' }}
+                    </a>
+                </div>
+
                 @foreach([
-                    ['Company',  $job->company  ?? '—'],
                     ['Location', $job->location ?? '—'],
                     ['Type',     $job->job_type
                                     ? str_replace('_', ' ', ucfirst($job->job_type))
