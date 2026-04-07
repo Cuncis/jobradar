@@ -185,10 +185,8 @@
                 </p>
 
                 @if($job->description)
-                    {{-- nl2br preserves line breaks from the API response --}}
-                    <div class="text-[0.92rem] leading-[1.85] text-[#c5cad9]
-                                whitespace-pre-wrap break-words">
-                        {{ $job->description }}
+                    <div class="job-desc text-[0.92rem] leading-[1.85] text-[#c5cad9] break-words">
+                        {!! $job->description !!}
                     </div>
                 @else
                     <p class="text-muted text-sm italic">
@@ -332,3 +330,27 @@
 </div>
 
 @endsection
+
+@push('styles')
+<style>
+    .job-desc p          { margin-bottom: 1rem; }
+    .job-desc ul,
+    .job-desc ol         { margin: 0.75rem 0 1rem 1.5rem; }
+    .job-desc ul         { list-style-type: disc; }
+    .job-desc ol         { list-style-type: decimal; }
+    .job-desc li         { margin-bottom: 0.35rem; }
+    .job-desc h1,
+    .job-desc h2,
+    .job-desc h3,
+    .job-desc h4         { font-weight: 700; margin: 1.25rem 0 0.5rem; color: #e2e8f0; }
+    .job-desc h1         { font-size: 1.25rem; }
+    .job-desc h2         { font-size: 1.1rem; }
+    .job-desc h3,
+    .job-desc h4         { font-size: 1rem; }
+    .job-desc strong,
+    .job-desc b          { font-weight: 600; color: #e2e8f0; }
+    .job-desc em,
+    .job-desc i          { font-style: italic; }
+    .job-desc br         { display: block; content: ''; margin-top: 0.4rem; }
+</style>
+@endpush
