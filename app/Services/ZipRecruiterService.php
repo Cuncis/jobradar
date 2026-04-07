@@ -51,7 +51,7 @@ class ZipRecruiterService
                 'title' => $job['name'] ?? 'Unknown Title',
                 'company' => $job['hiring_company']['name'] ?? 'Unknown Company',
                 'location' => trim(($job['city'] ?? '') . ', ' . ($job['state'] ?? ''), ', '),
-                'description' => strip_tags($job['snippet'] ?? ''),
+                'description' => strip_tags($job['snippet'] ?? '', '<p><br><ul><ol><li><strong><em><b><i><h1><h2><h3><h4>'),
                 'salary_min' => $job['salary_min_annual'] ?? null,
                 'salary_max' => $job['salary_max_annual'] ?? null,
                 'salary_currency' => 'USD',

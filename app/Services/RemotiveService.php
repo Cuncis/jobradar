@@ -42,7 +42,7 @@ class RemotiveService
                 'title' => $job['title'] ?? 'Unknown Title',
                 'company' => $job['company_name'] ?? 'Unknown Company',
                 'location' => $job['candidate_required_location'] ?? 'Worldwide',
-                'description' => strip_tags($job['description'] ?? ''),
+                'description' => strip_tags($job['description'] ?? '', '<p><br><ul><ol><li><strong><em><b><i><h1><h2><h3><h4>'),
                 'salary_min' => null,
                 'salary_max' => null,
                 'salary_currency' => 'USD',

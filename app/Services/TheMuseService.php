@@ -57,7 +57,7 @@ class TheMuseService
                 'title' => $job['name'] ?? 'Unknown Title',
                 'company' => $job['company']['name'] ?? 'Unknown Company',
                 'location' => $job['locations'][0]['name'] ?? 'Remote',
-                'description' => strip_tags($job['contents'] ?? ''),
+                'description' => strip_tags($job['contents'] ?? '', '<p><br><ul><ol><li><strong><em><b><i><h1><h2><h3><h4>'),
                 'salary_min' => null,
                 'salary_max' => null,
                 'salary_currency' => 'USD',

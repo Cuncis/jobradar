@@ -28,7 +28,7 @@ class JobSearch extends Component
 
     protected array $rules = [
         'query' => 'required|string|min:2|max:100',
-        'source' => 'nullable|string|in:adzuna,themuse,remotive,ziprecruiter,',
+        'source' => 'nullable|string|in:adzuna,themuse,remotive,ziprecruiter,jsearch,glassdoor,',
         'type' => 'nullable|string|max:50',
     ];
 
@@ -118,13 +118,30 @@ class JobSearch extends Component
 
         // Apply type filter
         if ($this->type !== '') {
-            $allJobs = array_values(array_filter(
-                $allJobs,
-                fn($job) => str_contains(
-                    strtolower($job['job_type'] ?? ''),
-                    strtolower($this->type)
-                )
-            ));
+            if ($this->type === 'remote') {
+                $allJobs = array_values(array_filter(
+                    $allJobs,
+                    function ($job) {
+                        $jobType = strtolower($job['job_type'] ?? '');
+                        $location = strtolower($job['location'] ?? '');
+                        $tags = array_map('strtolower', (array) ($job['tags'] ?? []));
+
+                        return str_contains($jobType, 'remote')
+                            || str_contains($location, 'remote')
+                            || str_contains($location, 'worldwide')
+                            || str_contains($location, 'anywhere')
+                            || in_array('remote', $tags);
+                    }
+                ));
+            } else {
+                $allJobs = array_values(array_filter(
+                    $allJobs,
+                    fn($job) => str_contains(
+                        strtolower($job['job_type'] ?? ''),
+                        strtolower($this->type)
+                    )
+                ));
+            }
         }
 
         $this->jobs = $allJobs;

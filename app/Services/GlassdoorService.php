@@ -60,7 +60,7 @@ class GlassdoorService
                 'title' => $job['jobTitleText'] ?? $job['title'] ?? 'Unknown Title',
                 'company' => $job['employerName'] ?? $job['company'] ?? 'Unknown Company',
                 'location' => $job['locationName'] ?? $job['location'] ?? 'Not specified',
-                'description' => strip_tags($job['jobDescriptionText'] ?? $job['description'] ?? ''),
+                'description' => strip_tags($job['jobDescriptionText'] ?? $job['description'] ?? '', '<p><br><ul><ol><li><strong><em><b><i><h1><h2><h3><h4>'),
                 'salary_min' => $salaryMin ? (int) $salaryMin : null,
                 'salary_max' => $salaryMax ? (int) $salaryMax : null,
                 'salary_currency' => 'USD',

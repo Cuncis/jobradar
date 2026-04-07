@@ -79,7 +79,7 @@ class JSearchService
                         $job['job_country'] ?? null,
                     ]))
                 ) ?: ($job['job_is_remote'] ? 'Remote' : 'Not specified'),
-                'description' => strip_tags($job['job_description'] ?? ''),
+                'description' => strip_tags($job['job_description'] ?? '', '<p><br><ul><ol><li><strong><em><b><i><h1><h2><h3><h4>'),
                 'salary_min' => $salaryMin,
                 'salary_max' => $salaryMax,
                 'salary_currency' => $currency,

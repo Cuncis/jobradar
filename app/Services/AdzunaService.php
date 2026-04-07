@@ -57,7 +57,7 @@ class AdzunaService
                 'title' => $job['title'] ?? 'Unknown Title',
                 'company' => $job['company']['display_name'] ?? 'Unknown Company',
                 'location' => $job['location']['display_name'] ?? 'Remote',
-                'description' => strip_tags($job['description'] ?? ''),
+                'description' => strip_tags($job['description'] ?? '', '<p><br><ul><ol><li><strong><em><b><i><h1><h2><h3><h4>'),
                 'salary_min' => $job['salary_min'] ?? null,
                 'salary_max' => $job['salary_max'] ?? null,
                 'salary_currency' => 'USD',
