@@ -40,13 +40,13 @@ Built as a portfolio project to demonstrate full-stack Laravel skills including 
 
 ## Screenshots
 
-| Hero / Landing Page | Search Results |
+| Landing Page | Search Results |
 |:---:|:---:|
-| ![SCREENSHOT OF HERO STATE - large headline, search bar, trending tags, source badges, dark theme with gradient glows] | ![SCREENSHOT OF SEARCH RESULTS - job cards grid, sidebar with source/type filters, sticky search bar] |
+| ![Landing Page](resources/assets/landing-page.png) | ![Search Results](resources/assets/search-results.png) |
 
 | Job Detail Page | Mobile View |
 |:---:|:---:|
-| ![SCREENSHOT OF JOB DETAIL PAGE - 2-column layout with description, metadata grid showing salary/location/type] | ![SCREENSHOT OF MOBILE VIEW - responsive layout with stacked cards and collapsible filters] |
+| ![Job Detail Page](resources/assets/job-detail-page.png) | ![Mobile View](resources/assets/mobile-view.png) |
 
 ## Architecture
 
