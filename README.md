@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="[YOUR JOBRADAR LOGO - dark themed, radar/search icon with gradient blue #5b7fff accent]" width="200" alt="JobRadar Logo">
+  <img src="resources/assets/logo001-1.png" width="200" alt="JobRadar Logo">
 </p>
 
 <h1 align="center">JobRadar</h1>
