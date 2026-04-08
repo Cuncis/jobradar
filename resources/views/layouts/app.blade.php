@@ -58,7 +58,7 @@
 
             <span class="text-xs font-medium tracking-widest uppercase text-muted
                          px-3 py-1 border border-border rounded-full">
-                4 Sources · Live
+                5 Sources · Live
             </span>
 
         </div>

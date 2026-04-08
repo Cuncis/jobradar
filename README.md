@@ -1,58 +1,220 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="[YOUR JOBRADAR LOGO - dark themed, radar/search icon with gradient blue #5b7fff accent]" width="200" alt="JobRadar Logo">
 </p>
 
-## About Laravel
+<h1 align="center">JobRadar</h1>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<p align="center">
+  <strong>One search. Every opportunity.</strong><br>
+  A unified job search aggregator that pulls listings from 5+ job boards into a single, elegant interface.
+</p>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<p align="center">
+  <img src="https://img.shields.io/badge/Laravel-13-FF2D20?style=flat-square&logo=laravel&logoColor=white" alt="Laravel 13">
+  <img src="https://img.shields.io/badge/PHP-8.3+-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP 8.3+">
+  <img src="https://img.shields.io/badge/Livewire-4-FB70A9?style=flat-square&logo=livewire&logoColor=white" alt="Livewire 4">
+  <img src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=flat-square&logo=tailwind-css&logoColor=white" alt="Tailwind CSS 4">
+  <img src="https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite 8">
+</p>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+![SCREENSHOT OF JOBRADAR HERO/LANDING PAGE - dark themed UI with search bar, trending tags, and gradient glow effects]
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## About
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**JobRadar** is a real-time job search aggregator built with Laravel and Livewire. Instead of checking multiple job boards separately, JobRadar fetches, normalizes, and displays listings from Adzuna, The Muse, Remotive, JSearch, and Glassdoor — all in one place with a fast, reactive interface.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+Built as a portfolio project to demonstrate full-stack Laravel skills including API integration, intelligent caching, reactive UI with Livewire, and clean service-oriented architecture.
 
-## Agentic Development
+## Features
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+- **Multi-Source Aggregation** — Search across 5+ job APIs simultaneously with unified results
+- **Smart 3-Tier Caching** — Laravel cache (30 min) → Database cache (60 min) → Live API fallback
+- **Real-Time Filtering** — Filter by job source, job type (Full Time, Part Time, Remote, Contract)
+- **Reactive UI** — Powered by Livewire with no full page reloads
+- **Shareable URLs** — Search state persisted via query parameters (`?q=laravel&source=adzuna&type=remote`)
+- **Job Detail Pages** — Full descriptions, salary ranges, company info, and direct links to original postings
+- **Deduplication** — Automatic removal of duplicate listings across sources
+- **Graceful Fallback** — Mock data returned when API keys are missing, so the app always works
+- **Dark Theme** — Modern dark UI with custom color palette and ambient gradient effects
+- **Responsive Design** — Mobile-first layout with collapsible sidebar filters
 
-```bash
-composer require laravel/boost --dev
+## Screenshots
 
-php artisan boost:install
+| Hero / Landing Page | Search Results |
+|:---:|:---:|
+| ![SCREENSHOT OF HERO STATE - large headline, search bar, trending tags, source badges, dark theme with gradient glows] | ![SCREENSHOT OF SEARCH RESULTS - job cards grid, sidebar with source/type filters, sticky search bar] |
+
+| Job Detail Page | Mobile View |
+|:---:|:---:|
+| ![SCREENSHOT OF JOB DETAIL PAGE - 2-column layout with description, metadata grid showing salary/location/type] | ![SCREENSHOT OF MOBILE VIEW - responsive layout with stacked cards and collapsible filters] |
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────┐
+│                   User Interface                     │
+│            Livewire JobSearch Component               │
+│         (search, filter, paginate, quick tags)        │
+└──────────────────────┬──────────────────────────────┘
+                       │
+┌──────────────────────▼──────────────────────────────┐
+│              JobAggregatorService                     │
+│         (orchestration, caching, dedup)               │
+└──────────────────────┬──────────────────────────────┘
+                       │
+        ┌──────────────┼──────────────┐
+        │              │              │
+   ┌────▼────┐   ┌────▼────┐   ┌────▼────┐
+   │ Laravel  │   │Database │   │  Live   │
+   │  Cache   │   │  Cache  │   │  APIs   │
+   │ (30 min) │   │ (60 min)│   │         │
+   └──────────┘   └─────────┘   └────┬────┘
+                                     │
+                    ┌────────────────┬┴───────────────┐
+                    │                │                 │
+              ┌─────▼─────┐  ┌──────▼──────┐  ┌──────▼──────┐
+              │  Adzuna    │  │  The Muse   │  │  Remotive   │
+              │  Service   │  │  Service    │  │  Service    │
+              └────────────┘  └─────────────┘  └─────────────┘
+              ┌─────▼─────┐  ┌──────▼──────┐
+              │  JSearch   │  │  Glassdoor  │
+              │  Service   │  │  Service    │
+              └────────────┘  └─────────────┘
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Each service normalizes API responses into a consistent schema:
 
-## Contributing
+```php
+[
+    'external_id', 'source', 'title', 'company', 'location',
+    'description', 'salary_min', 'salary_max', 'salary_currency',
+    'job_type', 'category', 'tags', 'posted_at', 'external_url', 'logo_url'
+]
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Tech Stack
 
-## Code of Conduct
+| Layer | Technology |
+|-------|-----------|
+| **Backend** | Laravel 13, PHP 8.3+ |
+| **Frontend** | Livewire 4.2, Tailwind CSS 4.2 |
+| **Build** | Vite 8 |
+| **Caching** | Redis (Predis) + Database |
+| **Database** | SQLite (default) / MySQL / PostgreSQL |
+| **Testing** | PHPUnit 12 |
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### API Integrations
 
-## Security Vulnerabilities
+| Source | Auth | Notes |
+|--------|------|-------|
+| **Adzuna** | App ID + Key | Global job search, region-based |
+| **The Muse** | API Key | Tech & creative industry jobs |
+| **Remotive** | None | Remote-only jobs, public API |
+| **JSearch** | RapidAPI Key | Broad job search via RapidAPI |
+| **Glassdoor** | RapidAPI Key | Company-level job data via RapidAPI |
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Getting Started
+
+### Prerequisites
+
+- PHP 8.3+
+- Composer
+- Node.js & npm
+- Redis (optional, falls back to file cache)
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/cuncis/jobradar.git
+cd jobradar
+
+# Install dependencies
+composer install
+npm install
+
+# Environment setup
+cp .env.example .env
+php artisan key:generate
+
+# Database
+touch database/database.sqlite
+php artisan migrate
+
+# Build frontend assets
+npm run build
+
+# Start the development server
+php artisan serve
+```
+
+### API Keys
+
+Add your API keys to `.env`. **All keys are optional** — services gracefully fall back to mock data when keys are missing.
+
+```env
+# Adzuna (https://developer.adzuna.com)
+ADZUNA_APP_ID=your_app_id
+ADZUNA_APP_KEY=your_app_key
+ADZUNA_COUNTRY=us
+
+# The Muse (https://www.themuse.com/developers)
+THEMUSE_API_KEY=your_key
+
+# JSearch via RapidAPI (https://rapidapi.com/letscrape-6bRBa3QguO5/api/jsearch)
+JSEARCH_API_KEY=your_rapidapi_key
+
+# Glassdoor via RapidAPI
+GLASSDOOR_API_KEY=your_rapidapi_key
+```
+
+### Development
+
+```bash
+# Run Vite dev server with HMR
+npm run dev
+
+# Run Laravel dev server
+php artisan serve
+
+# Run tests
+php artisan test
+```
+
+## Project Structure
+
+```
+app/
+├── Livewire/
+│   └── JobSearch.php          # Main search component (search, filter, paginate)
+├── Models/
+│   └── CachedJob.php          # Eloquent model for cached job listings
+├── Services/
+│   ├── JobAggregatorService   # Orchestrates all APIs, caching & dedup
+│   ├── AdzunaService          # Adzuna API integration
+│   ├── TheMuseService         # The Muse API integration
+│   ├── RemotiveService        # Remotive API integration
+│   ├── JSearchService         # JSearch (RapidAPI) integration
+│   └── GlassdoorService       # Glassdoor (RapidAPI) integration
+resources/views/
+├── livewire/
+│   └── job-search.blade.php   # Reactive search UI (hero + results)
+├── jobs/
+│   └── show.blade.php         # Job detail page
+└── layouts/
+    └── app.blade.php          # Base layout
+```
+
+## Key Design Decisions
+
+- **Service Pattern** — Each job API has its own service class with a consistent interface, making it easy to add new sources
+- **3-Tier Caching** — Minimizes API calls while keeping data fresh; database acts as a persistent fallback layer
+- **Mock Data Fallback** — Every service returns realistic mock data when API keys are missing, enabling local development without credentials
+- **Normalized Schema** — All API responses are transformed to a unified format, so the UI doesn't care which source a job came from
+- **Query-Scoped Caching** — Jobs are cached per search query with a composite unique key `(external_id, source, search_query)`
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the [MIT License](https://opensource.org/licenses/MIT).
