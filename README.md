@@ -2,8 +2,6 @@
   <img src="resources/assets/logo001-1.png" width="200" alt="JobRadar Logo">
 </p>
 
-<h1 align="center">JobRadar</h1>
-
 <p align="center">
   <strong>One search. Every opportunity.</strong><br>
   A unified job search aggregator that pulls listings from 5+ job boards into a single, elegant interface.
@@ -19,7 +17,7 @@
 
 ---
 
-![SCREENSHOT OF JOBRADAR HERO/LANDING PAGE - dark themed UI with search bar, trending tags, and gradient glow effects]
+<img src="resources/assets/homepage01.png">
 
 ## About
 
